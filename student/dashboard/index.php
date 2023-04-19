@@ -182,6 +182,15 @@ $duration_to = $get['duration_to'];
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="page/logbooks.php" class="nav-link">
+                 <i class="nav-icon fas fa-table"></i>
+              <p>
+                 View Log books
+       
+              </p>
+            </a>
+          </li>
        <li class="nav-item">
             <a href="page/request.php" class="nav-link">
                  <i class="nav-icon fas fa-plus-square"></i>
