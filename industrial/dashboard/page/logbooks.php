@@ -180,64 +180,34 @@ include("../sessions.php");
     </section>
 
     <!-- Main content -->
-    <section class="content">
+     <!-- Main content -->
+     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Logbooks</h3>
+                <h3 class="card-title">Students</h3>
               </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-hover">
-                  <thead>
-                  <tr>
-                    <th>Student Email</th>
-                    <th>File</th>
-                    
-                    <th>Date</th>
-                  
-                     <th>Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                      
-                    <?php
-include("../../../includes/dbconnect.php");
+              <div class="form-group" >
+                <?php
+                $supervisor=$_SESSION['email'];
 
-$conn = DBconnect();
-$sql = "SELECT * FROM students_logbook WHERE marked='0'";
-$query = mysqli_query($conn,$sql);
-while($get = mysqli_fetch_array($query)){
-  $id    =   $get['id'];
-
-$date = $get['date'];
-$email = $get['email'];
-
-$file = $get['file'];
-echo '<tr>
- <td>'.$email.'</td>
-
- <td>'.$file.'</td>
- <td>'.$date.'</td>
-<td>
-                      <div class="btn-group btn-group-sm">
-                        <a  href="./assess.php?log_id='.$id.' " class="btn btn-info"><i class="fas fa-edit"></i></a>
-                        <a href="../../../student/dashboard/uploads/'.$file.'" download class="btn btn-warning" ><i class="fas fa-eye"></i></a>
-                      </div>
-                    </td>   </tr>';
-
-}
-
-?>
-
-          
-         
-                  </tbody>
-               
-                </table>
-              </div>
+                $conn=mysqli_connect("localhost","root","","attachment");
+                $sqlstmt="select * from industrial_supervisor where email='$supervisor'";
+                $res=mysqli_query($conn,$sqlstmt);
+                $rows=mysqli_fetch_assoc($res);
+                $company=$rows['company_name'];
+                $sql="select * from students where company_name='$company'";
+                $query=mysqli_query($conn,$sql);
+                while($row=mysqli_fetch_assoc($query))
+                {$student=$row['email'];
+                  $name=$row['fname']." ".$row['lname'];
+                  echo "<a href='listweeks.php?student=".$student."' class='btn btn-primary' style='width:100%'>$name</a>
+                  <hr>";
+                }
+             ?>
+ 
               <!-- /.card-body -->
             </div>
          
@@ -248,7 +218,6 @@ echo '<tr>
       </div>
       <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 

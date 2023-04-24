@@ -165,27 +165,170 @@ include("../sessions.php");
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-12">
-            <div class="card">
+          <!-- left column -->
+          <div class="col-md-12">
+            <!-- jquery validation -->
+            <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Students</h3>
-              </div>
-              <div class="form-group" >
                 <?php
-                $supervisor=$_SESSION['email'];
                 $conn=mysqli_connect("localhost","root","","attachment");
-                $sql="select * from students where supervisor_name='$supervisor'";
+                $week=$_GET['week'];
+                $user=$_GET['student'];
+                $sql="select * from elogbook where Week='$week' and email='$user'";
                 $query=mysqli_query($conn,$sql);
-                while($row=mysqli_fetch_assoc($query))
-                {$student=$row['email'];
-                  $name=$row['fname']." ".$row['lname'];
-                  echo "<a href='listweeks.php?student=".$student."' class='btn btn-primary' style='width:100%'>$name</a>
-                  <hr>";
-                }
-             ?>
- 
-              <!-- /.card-body -->
+                $count=mysqli_num_rows($query);
+                if($count<1)
+                {
+                ?>
+                <h3 class="card-title">Week <?php echo $week; ?> Personal logbook For <?php echo $week; ?></h3>
+                     <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+              </div>
+         
+              <form id="quickForm" action="update_logbook.php" method="post"  enctype="multipart/form-data">
+                <div class="card-body">
+               <!--    <div class="form-group">
+                    <label for="exampleInputEmail1">Week</label>
+                    <input type="month" name="week" class="form-control"  placeholder="Eg. 001/nrb" required>
+                  </div> -->
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Day 1</label>
+                    <textarea name="day1" class="form-control"  required></textarea>
+                    <label for="exampleInputEmail1">Day 2</label>
+                    <textarea name="day2" class="form-control"  required></textarea>
+                    <label for="exampleInputEmail1">Day 3</label>
+                    <textarea name="day3" class="form-control"  required></textarea>
+                    <label for="exampleInputEmail1">Day 4</label>
+                    <textarea name="day4" class="form-control"  required></textarea>
+                    <label for="exampleInputEmail1">Day 5</label>
+                    <textarea name="day5" class="form-control"  required></textarea>
+                    <label for="exampleInputEmail1">Day 6</label>
+                    <textarea name="day6" class="form-control"  required></textarea>
+                    <label for="exampleInputEmail1">Day 7</label>
+                    <textarea name="day7" class="form-control"  required></textarea>
+                  </div>
+             <input type="hidden" name="email" value="<?php echo $mail;  ?>">
+             <input type="hidden" name="week" value="<?php echo $_GET['week']; ?>">
+           <div class="form-group">
+            <?php $date=date("20y-m-d");
+            ?>
+                    <label for="exampleInputEmail1">Date</label>
+                    <input type="date" name="date" class="form-control" min='<?php echo $date; ?>' required>
+                  </div>
+          
+             
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary" name="logbook">Add Logbook</button>
+                </div>
+              </form>
             </div>
+            <!-- /.card -->
+            </div>
+         </div>
+         <?php }
+         else{
+          $row=mysqli_fetch_assoc($query);
+          ?>
+               <h3 class="card-title">Week <?php echo $week; ?> Personal logbook For <?php echo $user; ?></h3>
+                     <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+              </div>
+         
+              <form id="quickForm" action="" method="post"  enctype="multipart/form-data">
+                <div class="card-body">
+               <!--    <div class="form-group">
+                    <label for="exampleInputEmail1">Week</label>
+                    <input type="month" name="week" class="form-control"  placeholder="Eg. 001/nrb" required>
+                  </div> -->
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Day 1</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['Day1']; ?></textarea>
+                    <label for="exampleInputEmail1">Day 2</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['Day2']; ?></textarea>
+                    <label for="exampleInputEmail1">Day 3</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['Day3']; ?></textarea>
+                    <label for="exampleInputEmail1">Day 4</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['Day4']; ?></textarea>
+                    <label for="exampleInputEmail1">Day 5</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['Day5']; ?></textarea>
+                    <label for="exampleInputEmail1">Day 6</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['Day6']; ?></textarea>
+                    <label for="exampleInputEmail1">Day 7</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['Day7']; ?></textarea>
+                    <label for="exampleInputEmail1">Student Comment</label>
+                    <textarea name="Scomment" class="form-control"  readonly><?php echo $row['StudentComments']; ?></textarea>
+                    <label for="exampleInputEmail1">Company Supervisor Comments</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['CompanySupervisorComments']; ?></textarea>
+                    <label for="exampleInputEmail1">University Based Supervisor Comments</label>
+                    <textarea class="form-control" name="comment" <?php if($row['UniversityBasedSupervisorComments']!=""){echo "readonly";}?>><?php echo $row['UniversityBasedSupervisorComments']; ?></textarea>
+                    <label for="exampleInputEmail1">Marks</label>
+                    <textarea name="marks" class="form-control"  <?php if($row['CompanySupervisorComments']==""||$row['Marks']!=0){echo "readonly"; }?>><?php if($row['Marks']==0) {echo "Not marked"; } else {echo $row['Marks'];}?></textarea>
+                  
+                  </div>
+             <input type="hidden" name="email" value="<?php echo $mail;  ?>">
+           <div class="form-group">
+            <?php $date=date("20y-m-d");
+            ?>
+                    <label for="exampleInputEmail1">Date</label>
+                    <input type="date" name="date" value="<?php echo $row['date']; ?>" class="form-control" min='<?php echo $date; ?>' readonly>
+                  </div>
+             <input type="submit" class="btn btn-primary" name="update" value="Update Comment">
+             <?php
+             if($row['CompanySupervisorComments']!="")
+             {?>
+             <input type="submit" class="btn btn-primary" name="Marks" value="Update Marks">
+             <?php }?>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+              
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+            </div>
+         </div>
+          <?php
+         }
+         if(isset($_POST['update']))
+         {
+            $comment=$_POST['comment'];
+            $connect=mysqli_connect("localhost","root","","attachment");
+            $sql1="update elogbook set UniversityBasedSupervisorComments='$comment' where email='$user' and week='$week'";
+            $query1=mysqli_query($connect,$sql1);
+            if($query)
+            {
+                echo "<script>alert('Successfully Updated');<script>";
+                header("location:logbook.php?week=$week20 &&student=$user");
+            }
+            else{
+                echo "There was an error try again ".mysqli_error($connect);
+            }
+         }
+         if(isset($_POST['Marks']))
+         {
+          $marks=$_POST['marks'];
+            $connect1=mysqli_connect("localhost","root","","attachment");
+            $sql2="update elogbook set Marks='$marks' where email='$user' and week='$week'";
+            $query2=mysqli_query($connect1,$sql2);
+            if($query2)
+            {
+                echo "<script>alert('Successfully Updated');<script>";
+                header("location:logbook.php?week=$week20 &&student=$user");
+            }
+            else{
+                echo "There was an error try again ".mysqli_error($connect);
+            }
+         }
+ ?>
          
           </div>
           <!-- /.col -->

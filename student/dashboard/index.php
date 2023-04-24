@@ -153,7 +153,7 @@ $duration_to = $get['duration_to'];
           </li>
 
           <li class="nav-item">
-            <a href="page/logbook.php" class="nav-link">
+            <a href="page/listweeks.php" class="nav-link">
          <i class="nav-icon fas fa-edit"></i>
               <p>
                  logbook

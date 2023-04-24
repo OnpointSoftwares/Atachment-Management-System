@@ -1,12 +1,13 @@
 <?php
 include("../sessions.php");
+$mail = $_SESSION["email"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Supervisor</title>
+  <title>Student</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -46,6 +47,7 @@ include("../sessions.php");
     </ul>
 
 
+
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
@@ -54,6 +56,7 @@ include("../sessions.php");
      
     </ul>
   </nav>
+</div>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
@@ -68,7 +71,7 @@ include("../sessions.php");
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-       
+     
       </div>
 
       <!-- SidebarSearch Form -->
@@ -84,7 +87,7 @@ include("../sessions.php");
       </div>
 
       <!-- Sidebar Menu -->
- <nav class="mt-2">
+       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
@@ -98,7 +101,7 @@ include("../sessions.php");
             </a>
   
           </li>
-          <li class="nav-item">
+         <li class="nav-item">
             <a href="profile.php" class="nav-link ">
                <i class="nav-icon fas fa-user"></i>
               <p>
@@ -107,29 +110,32 @@ include("../sessions.php");
               </p>
             </a>
           </li>
-    <li class="nav-item">
-            <a href="logbooks.php" class="nav-link active">
+   <li class="nav-item">
+            <a href="listweeks.php" class="nav-link active">
          <i class="nav-icon fas fa-edit"></i>
               <p>
-                 logbooks
+                logbook
        
               </p>
             </a>
           </li>
-       <li class="nav-item">
-            <a href="marked_logbooks.php" class="nav-link">
-         <i class="nav-icon fas fa-plus-square"></i>
+
+    
+  
+              <li class="nav-item">
+            <a href="feedback.php" class="nav-link">
+                 <i class="nav-icon fas fa-table"></i>
               <p>
-                 Assessments
+                 View Feedbacks
        
               </p>
             </a>
           </li>
-                 <li class="nav-item">
-            <a href="students.php" class="nav-link">
-         <i class="nav-icon fas fa-users"></i>
+           <li class="nav-item">
+            <a href="request.php" class="nav-link">
+                 <i class="nav-icon fas fa-plus-square"></i>
               <p>
-                Assigned Students
+                 Request Leave
        
               </p>
             </a>
@@ -140,56 +146,76 @@ include("../sessions.php");
     </div>
     <!-- /.sidebar -->
   </aside>
-
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Logbooks</h1>
+            <h1>Logbook</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Logbooks</li>
+              <li class="breadcrumb-item active">Logbook</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
 
-    <!-- Main content -->
-    <section class="content">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+   
+<section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-12">
-            <div class="card">
+          <!-- left column -->
+          <div class="col-md-12">
+            <!-- jquery validation -->
+            <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Students</h3>
+                <h3 class="card-title">Submit Your Personal logbook</h3>
+                     <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
               </div>
-              <div class="form-group" >
-                <?php
-                $supervisor=$_SESSION['email'];
-                $conn=mysqli_connect("localhost","root","","attachment");
-                $sql="select * from students where supervisor_name='$supervisor'";
-                $query=mysqli_query($conn,$sql);
-                while($row=mysqli_fetch_assoc($query))
-                {$student=$row['email'];
-                  $name=$row['fname']." ".$row['lname'];
-                  echo "<a href='listweeks.php?student=".$student."' class='btn btn-primary' style='width:100%'>$name</a>
-                  <hr>";
-                }
-             ?>
- 
-              <!-- /.card-body -->
-            </div>
+              </div>
          
-          </div>
-          <!-- /.col -->
-        </div>
+              <form id="quickForm" action="update_logbook.php" method="post"  enctype="multipart/form-data">
+                <div class="card-body">
+               <!--    <div class="form-group">
+                    <label for="exampleInputEmail1">Week</label>
+                    <input type="month" name="week" class="form-control"  placeholder="Eg. 001/nrb" required>
+                  </div> -->
+                <div class="form-group" >
+             <a href="logbook.php?week=1" class="btn btn-primary" style="width:100%">Week 1</a>
+             <a href="logbook.php?week=2" class="btn btn-primary" style="width:100%">Week 2</a>
+             <a href="logbook.php?week=3" class="btn btn-primary" style="width:100%">Week 3</a>
+             <a href="logbook.php?week=4" class="btn btn-primary" style="width:100%">Week 4</a>
+             <a href="logbook.php?week=5" class="btn btn-primary" style="width:100%">Week 5</a>
+             <a href="logbook.php?week=6" class="btn btn-primary" style="width:100%">Week 6</a>
+             <a href="logbook.php?week=7" class="btn btn-primary" style="width:100%">Week 7</a>
+             <a href="logbook.php?week=8" class="btn btn-primary" style="width:100%">Week 8</a>
+             <a href="logbook.php?week=9" class="btn btn-primary" style="width:100%">Week 9</a>
+             <a href="logbook.php?week=10" class="btn btn-primary" style="width:100%">Week 10</a>
+             <a href="logbook.php?week=11" class="btn btn-primary" style="width:100%">Week 11</a>
+             <a href="logbook.php?week=12" class="btn btn-primary" style="width:100%">Week 12</a>
+             <a href="logbook.php?week=13" class="btn btn-primary" style="width:100%">Week 13</a>
+             
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary" name="logbook">Add Logbook</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+            </div>
+         </div>
+ 
+      </div><!-- /.container-fluid -->
+    </section>
         <!-- /.row -->
       </div>
       <!-- /.container-fluid -->
@@ -205,6 +231,7 @@ include("../sessions.php");
   </aside>
   <!-- /.control-sidebar -->
 </div>
+
 <!-- ./wrapper -->
 
 <!-- jQuery -->
@@ -241,43 +268,5 @@ include("../sessions.php");
 <script src="../../../dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="../../../dist/js/pages/dashboard.js"></script>
-<script src="../../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- DataTables  & ../plugins -->
-<script src="../../../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="../../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="../../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="../../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="../../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="../../../plugins/jszip/jszip.min.js"></script>
-<script src="../../../plugins/pdfmake/pdfmake.min.js"></script>
-<script src="../../../plugins/pdfmake/vfs_fonts.js"></script>
-<script src="../../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="../../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="../../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../../../dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../../../dist/js/demo.js"></script>
-<!-- Page specific script -->
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
 </body>
 </html>

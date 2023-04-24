@@ -33,20 +33,19 @@ $mail = $_SESSION["email"];
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="../index.php" class="nav-link">Home</a>
+        <a href="index.php" class="nav-link">Home</a>
       </li>
      
     </ul>
 
-
+   
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -56,14 +55,13 @@ $mail = $_SESSION["email"];
      
     </ul>
   </nav>
-</div>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../../../index.php" class="brand-link">
-      <img src="../../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <a href="../../index.php" class="brand-link">
+      <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Logout</span>
     </a>
 
@@ -87,12 +85,12 @@ $mail = $_SESSION["email"];
       </div>
 
       <!-- Sidebar Menu -->
-       <nav class="mt-2">
+      <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="../index.php" class="nav-link ">
+            <a href="../index.php" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -101,8 +99,8 @@ $mail = $_SESSION["email"];
             </a>
   
           </li>
-         <li class="nav-item">
-            <a href="profile.php" class="nav-link ">
+          <li class="nav-item">
+            <a href="profile.php" class="nav-link">
                <i class="nav-icon fas fa-user"></i>
               <p>
                  Profile
@@ -110,18 +108,28 @@ $mail = $_SESSION["email"];
               </p>
             </a>
           </li>
-   <li class="nav-item">
-            <a href="logbook.php" class="nav-link active">
+
+          <li class="nav-item">
+            <a href="listweeks.php" class="nav-link">
          <i class="nav-icon fas fa-edit"></i>
               <p>
-                logbook
+                 logbook
        
               </p>
             </a>
           </li>
 
     
-  
+       <!--    Users Info -->
+  <!--         <li class="nav-item">
+            <a href="page/reports.php" class="nav-link">
+                 <i class="nav-icon fas fa-chart-line"></i>
+              <p>
+                  Your Logbook
+       
+              </p>
+            </a>
+          </li> -->
               <li class="nav-item">
             <a href="feedback.php" class="nav-link">
                  <i class="nav-icon fas fa-table"></i>
@@ -131,7 +139,16 @@ $mail = $_SESSION["email"];
               </p>
             </a>
           </li>
-           <li class="nav-item">
+          <li class="nav-item">
+            <a href="logbooks.php" class="nav-link">
+                 <i class="nav-icon fas fa-table"></i>
+              <p>
+                 View Log books
+       
+              </p>
+            </a>
+          </li>
+       <li class="nav-item">
             <a href="request.php" class="nav-link">
                  <i class="nav-icon fas fa-plus-square"></i>
               <p>
@@ -140,6 +157,7 @@ $mail = $_SESSION["email"];
               </p>
             </a>
           </li>
+         
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -174,7 +192,17 @@ $mail = $_SESSION["email"];
             <!-- jquery validation -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Submit Your Personal logbook</h3>
+                <?php
+                $conn=mysqli_connect("localhost","root","","attachment");
+                $week=$_GET['week'];
+                $user=$_SESSION['email'];
+                $sql="select * from elogbook where Week='$week' and email='$user'";
+                $query=mysqli_query($conn,$sql);
+                $count=mysqli_num_rows($query);
+                if($count<1)
+                {
+                ?>
+                <h3 class="card-title">Submit Your Week <?php echo $week; ?> Personal logbook</h3>
                      <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                   <i class="fas fa-minus"></i>
@@ -189,10 +217,25 @@ $mail = $_SESSION["email"];
                     <input type="month" name="week" class="form-control"  placeholder="Eg. 001/nrb" required>
                   </div> -->
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Enter your log book here</label>
-                    <textarea name="file" class="form-control"  required></textarea>
+                    <label for="exampleInputEmail1">Day 1</label>
+                    <textarea name="day1" class="form-control"  required></textarea>
+                    <label for="exampleInputEmail1">Day 2</label>
+                    <textarea name="day2" class="form-control"  required></textarea>
+                    <label for="exampleInputEmail1">Day 3</label>
+                    <textarea name="day3" class="form-control"  required></textarea>
+                    <label for="exampleInputEmail1">Day 4</label>
+                    <textarea name="day4" class="form-control"  required></textarea>
+                    <label for="exampleInputEmail1">Day 5</label>
+                    <textarea name="day5" class="form-control"  required></textarea>
+                    <label for="exampleInputEmail1">Day 6</label>
+                    <textarea name="day6" class="form-control"  required></textarea>
+                    <label for="exampleInputEmail1">Day 7</label>
+                    <textarea name="day7" class="form-control"  required></textarea>
+                    <label for="exampleInputEmail1">Student Comment</label>
+                    <textarea name="Scomment" class="form-control"  required></textarea>
                   </div>
              <input type="hidden" name="email" value="<?php echo $mail;  ?>">
+             <input type="hidden" name="week" value="<?php echo $_GET['week']; ?>">
            <div class="form-group">
             <?php $date=date("20y-m-d");
             ?>
@@ -211,7 +254,71 @@ $mail = $_SESSION["email"];
             <!-- /.card -->
             </div>
          </div>
- 
+         <?php }
+         else{
+          $row=mysqli_fetch_assoc($query);
+          ?>
+               <h3 class="card-title">Submit Your Week <?php echo $week; ?> Personal logbook</h3>
+                     <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+              </div>
+         
+              <form id="quickForm" action="update_logbook.php" method="post"  enctype="multipart/form-data">
+                <div class="card-body">
+               <!--    <div class="form-group">
+                    <label for="exampleInputEmail1">Week</label>
+                    <input type="month" name="week" class="form-control"  placeholder="Eg. 001/nrb" required>
+                  </div> -->
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Day 1</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['Day1']; ?></textarea>
+                    <label for="exampleInputEmail1">Day 2</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['Day2']; ?></textarea>
+                    <label for="exampleInputEmail1">Day 3</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['Day3']; ?></textarea>
+                    <label for="exampleInputEmail1">Day 4</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['Day4']; ?></textarea>
+                    <label for="exampleInputEmail1">Day 5</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['Day5']; ?></textarea>
+                    <label for="exampleInputEmail1">Day 6</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['Day6']; ?></textarea>
+                    <label for="exampleInputEmail1">Day 7</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['Day7']; ?></textarea>
+                    <label for="exampleInputEmail1">Student Comment</label>
+                    <textarea name="Scomment" class="form-control"  readonly><?php echo $row['StudentComments']; ?></textarea>
+                    <label for="exampleInputEmail1">Company Supervisor Comments</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['CompanySupervisorComments']; ?></textarea>
+                    <label for="exampleInputEmail1">University Based Supervisor Comments</label>
+                    <textarea name="file" class="form-control"  readonly><?php echo $row['UniversityBasedSupervisorComments']; ?></textarea>
+                    <label for="exampleInputEmail1">Marks</label>
+                    <textarea name="file" class="form-control"  readonly><?php if($row['Marks']==0) {echo "Not marked"; } else {echo $row['Marks'];}?></textarea>
+                  
+                  </div>
+             <input type="hidden" name="email" value="<?php echo $mail;  ?>">
+           <div class="form-group">
+            <?php $date=date("20y-m-d");
+            ?>
+                    <label for="exampleInputEmail1">Date</label>
+                    <input type="date" name="date" value="<?php echo $row['date']; ?>" class="form-control" min='<?php echo $date; ?>' readonly>
+                  </div>
+          
+             
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+              
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+            </div>
+         </div>
+          <?php
+         }
+ ?>
       </div><!-- /.container-fluid -->
     </section>
         <!-- /.row -->

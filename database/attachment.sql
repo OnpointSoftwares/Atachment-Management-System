@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 29, 2021 at 02:48 PM
--- Server verHmm. We’re having trouble finding that site.sion: 10.4.8-MariaDB
--- PHP Version: 7.3.10
+-- Generation Time: Apr 21, 2023 at 07:38 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -21,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `attachment`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `password` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `password`) VALUES
+(1, 'admin@gmail.com', 'admin'),
+(2, 'kendihyvone90@gmail.com', 'admin'),
+(3, 'solomon@gmail.com', 'admin');
 
 -- --------------------------------------------------------
 
@@ -46,14 +66,41 @@ CREATE TABLE `assess_students` (
   `date` date NOT NULL,
   `feedback` varchar(100) NOT NULL,
   `comment` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `assess_students`
+-- Table structure for table `elogbook`
 --
 
-INSERT INTO `assess_students` (`id`, `student_email`, `attendance`, `punctuality`, `skills`, `office_applications`, `technical_applications`, `specialisation`, `scientific_knowledge`, `ability_to_learn`, `acceptability_to_colleagues`, `creativity`, `planning`, `time_marks`, `date`, `feedback`, `comment`) VALUES
-(12, 'Sammunesh2000@gmail.com', '1', '2', '3', '4', '1', '3', '1', '2', '1', '2', '2', '1', '2021-01-27', 'Impressing work', 'Work smart');
+CREATE TABLE `elogbook` (
+  `id` int(11) NOT NULL,
+  `Week` int(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `Day1` varchar(500) NOT NULL,
+  `Day2` varchar(500) NOT NULL,
+  `Day3` varchar(500) NOT NULL,
+  `Day4` varchar(500) NOT NULL,
+  `Day5` varchar(500) NOT NULL,
+  `Day6` varchar(500) NOT NULL,
+  `Day7` varchar(500) NOT NULL,
+  `StudentComments` varchar(500) NOT NULL,
+  `CompanySupervisorComments` varchar(500) NOT NULL,
+  `UniversityBasedSupervisorComments` varchar(500) NOT NULL,
+  `Marks` int(11) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `elogbook`
+--
+
+INSERT INTO `elogbook` (`id`, `Week`, `email`, `Day1`, `Day2`, `Day3`, `Day4`, `Day5`, `Day6`, `Day7`, `StudentComments`, `CompanySupervisorComments`, `UniversityBasedSupervisorComments`, `Marks`, `date`) VALUES
+(1, 1, 'mukono@gmail.com', 'I installed lans', 'I serviced computers', 'I supported the staff', 'I did printing', 'I swept the office', 'I maintained the server', 'I adviced the other staff', '', 'Good work', 'Good work', 20, '2023-04-21'),
+(4, 2, 'mukono@gmail.com', 'I maintained the server', 'I serviced the computers', 'I was in the office', 'I led mentorship program', 'I was in the office', 'I configured the switches', 'I swept the office', '', 'I like what you are doing', 'Good work', 30, '2023-04-21'),
+(5, 5, 'mukono@gmail.com', 'Labour Day', 'Balance ledgers', 'Balance accounts', 'Check invoices', 'Submit invoices', 'Record import containers', 'Confirm export containers', '', 'Good work solomon.', 'You are doing some good work', 30, '2023-05-07'),
+(6, 3, 'mukono@gmail.com', 'Cleaning the office', 'Dusting off the computers', 'Creating invoices', 'Delivering invoices', 'Climping lans', 'Configuring the router', 'Maintaining the server', 'I realy enjoyed the week', 'You did some good work', 'Good work student', 50, '2023-04-21');
 
 -- --------------------------------------------------------
 
@@ -70,14 +117,14 @@ CREATE TABLE `industrial_supervisor` (
   `company_address` varchar(100) NOT NULL,
   `department` varchar(100) NOT NULL,
   `phone` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `industrial_supervisor`
 --
 
 INSERT INTO `industrial_supervisor` (`id`, `firstname`, `lastname`, `email`, `company_name`, `company_address`, `department`, `phone`) VALUES
-(2, 'Aisha', 'Abdille', 'Aishaabdille@gmail.com', 'test', '2333332', 'ICT', '2343243');
+(3, 'vincent', 'Bett', 'vincentbettoh@gmail.com', 'KPA', '001, Mombasa', 'ICT', '0702502952');
 
 -- --------------------------------------------------------
 
@@ -92,7 +139,7 @@ CREATE TABLE `leave_request` (
   `to_date` date NOT NULL,
   `request` varchar(3000) NOT NULL,
   `accepted` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `leave_request`
@@ -124,15 +171,14 @@ CREATE TABLE `students` (
   `town` varchar(100) NOT NULL,
   `street` varchar(100) NOT NULL,
   `building` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `students`
 --
 
 INSERT INTO `students` (`id`, `fname`, `lname`, `email`, `adm`, `course`, `company_name`, `company_address`, `department`, `supervisor_name`, `duration_from`, `duration_to`, `town`, `street`, `building`) VALUES
-(4, 'Eric', 'Nyabuto', 'Ericnyabuto@gmail.com', 'DCSNRB699919', 'bbit', 'xyz', '00100nrb', 'ICT', 'Aisha Abdille', '2021-01-19', '2021-01-30', '', '', ''),
-(7, 'Antonio', 'Cheruiyot', 'admin@admin.com', '101', 'test', 'test', '2333332', 'ICT', 'admin@gmail.com', '2021-01-26', '2021-01-30', 'vfd', 'df', 'd');
+(8, 'Solomon', 'Mukono', 'mukono@gmail.com', 'BBIT/MG/2698/09/20', 'BBIT', 'KPA', '001, Mombasa', 'ICT', 'mgachoka@gmail.com', '2023-04-20', '2023-04-30', 'Mombasa', 'Apolo', 'KPA');
 
 -- --------------------------------------------------------
 
@@ -150,15 +196,7 @@ CREATE TABLE `students_logbook` (
   `feedback` varchar(250) NOT NULL,
   `comment` varchar(200) NOT NULL,
   `supervisor_email` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `students_logbook`
---
-
-INSERT INTO `students_logbook` (`id`, `email`, `file`, `date`, `marks`, `marked`, `feedback`, `comment`, `supervisor_email`) VALUES
-(18, 'Sammunesh2000@gmail.com', '84656452.pdf', '2021-01-30', '', 0, '', '', ''),
-(19, 'Sammunesh2000@gmail.com', 'EXAMCARD-DCSNRB699919.pdf', '2021-01-29', '60', 1, 'can do better', 'improved', 'admin@gmail.com');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -176,23 +214,36 @@ CREATE TABLE `supervisors` (
   `instituition_address` varchar(200) NOT NULL,
   `department` varchar(200) NOT NULL,
   `phone` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `supervisors`
 --
 
 INSERT INTO `supervisors` (`id`, `supervisor_fname`, `supervisor_lname`, `email`, `course`, `instituition_name`, `instituition_address`, `department`, `phone`) VALUES
-(2, 'John', 'Doe', 'admin@gmail.com', '', 'UON', '0010202', 'ICT', '1234567');
+(2, 'John', 'Doe', 'admin@gmail.com', '', 'UON', '0010202', 'ICT', '1234567'),
+(3, 'Mercy', 'Gachoka', 'mgachoka@gmail.com', '', 'Kabarak', '001,Nakuru', 'ICT', '0712345678');
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `assess_students`
 --
 ALTER TABLE `assess_students`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `elogbook`
+--
+ALTER TABLE `elogbook`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -230,16 +281,28 @@ ALTER TABLE `supervisors`
 --
 
 --
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `assess_students`
 --
 ALTER TABLE `assess_students`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT for table `elogbook`
+--
+ALTER TABLE `elogbook`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `industrial_supervisor`
 --
 ALTER TABLE `industrial_supervisor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `leave_request`
@@ -251,19 +314,19 @@ ALTER TABLE `leave_request`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `students_logbook`
 --
 ALTER TABLE `students_logbook`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `supervisors`
 --
 ALTER TABLE `supervisors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
